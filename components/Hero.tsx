@@ -44,7 +44,7 @@ export default function Hero() {
                     </Button>
                 </a>
                 <a href="#structure">
-                    <Button variant="outline" className="text-game-accent border-4 border-game-accent bg-transparent hover:bg-game-accent/10 font-pixel text-xs px-8 py-6 rounded-none border-b-4 active:border-b-0 active:translate-y-1 transition-all">
+                    <Button variant="outline" className="text-game-accent border-4 border-game-accent bg-transparent hover:bg-game-accent/10 hover:text-white font-pixel text-xs px-8 py-6 rounded-none border-b-4 active:border-b-0 active:translate-y-1 transition-all">
                         VIEW MAP
                     </Button>
                 </a>
@@ -52,15 +52,22 @@ export default function Hero() {
 
             {/* Socials */}
             <div className="flex justify-center gap-6">
-                {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
-                    <motion.div
+                {[
+                    { Icon: Facebook, href: "https://www.facebook.com/cic.enactus.zayed" },
+                    { Icon: Instagram, href: "https://www.instagram.com/cic.enactus/" },
+                    { Icon: Linkedin, href: "https://www.linkedin.com/company/cic-enactus/posts/?feedView=all" }
+                ].map(({ Icon, href }, i) => (
+                    <motion.a
                         key={i}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{ scale: 1.2, rotate: 12 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-3 bg-game-purple/50 rounded-none border-2 border-game-primary hover:bg-game-primary hover:text-white cursor-pointer transition-colors"
                     >
                         <Icon className="w-5 h-5 text-game-accent" />
-                    </motion.div>
+                    </motion.a>
                 ))}
             </div>
         </motion.div>

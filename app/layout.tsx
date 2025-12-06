@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Enactus CIC - Level Up",
   description: "Enactus CIC El Sheikh Zayed Portfolio - Game On!",
   icons: {
-    icon: "/Enactus-logo.png",
+    icon: "/favicon-white.png",
   },
 };
 

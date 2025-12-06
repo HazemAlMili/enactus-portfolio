@@ -31,8 +31,12 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start">
              <h4 className="font-pixel text-game-primary mb-4">MULTIPLAYER</h4>
              <div className="flex gap-4">
-                {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
-                    <a key={i} href="#" className="p-2 bg-game-purple rounded hover:bg-game-accent hover:text-black transition-colors text-white">
+                {[
+                    { Icon: Facebook, href: "https://www.facebook.com/cic.enactus.zayed" },
+                    { Icon: Instagram, href: "https://www.instagram.com/cic.enactus/" },
+                    { Icon: Linkedin, href: "https://www.linkedin.com/company/cic-enactus/posts/?feedView=all" }
+                ].map(({ Icon, href }, i) => (
+                    <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="p-2 bg-game-purple rounded hover:bg-game-accent hover:text-black transition-colors text-white">
                         <Icon className="w-5 h-5" />
                     </a>
                 ))}
