@@ -6,16 +6,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { X, Users, Star } from "lucide-react";
 
 const departments = [
-  { id: "it", name: "Information Technology", color: "bg-blue-600", desc: "Tech Wizards" },
-  { id: "hr", name: "Human Resource", color: "bg-red-500", desc: "People Power" },
-  { id: "pm", name: "Project Management", color: "bg-yellow-500", desc: "Project Masters" },
-  { id: "pr", name: "Public Relation", color: "bg-purple-500", desc: "Public Relations" },
-  { id: "fr", name: "Fundraising", color: "bg-green-500", desc: "Fundraising" },
-  { id: "logistics", name: "Logistics", color: "bg-orange-500", desc: "Operations" },
-  { id: "er", name: "Organization", color: "bg-teal-500", desc: "Organization" },
-  { id: "mkt", name: "Marketing", color: "bg-pink-500", desc: "Marketing" },
-  { id: "mm", name: "Multi-media", color: "bg-indigo-500", desc: "Multi-media" },
-  { id: "pres", name: "Presentation", color: "bg-cyan-500", desc: "Presentation" },
+  { id: "it", name: "Information Technology", color: "bg-blue-600", desc: "Tech Wizards", headName: "Hazem Al-Melli", headImage: "/Hazem.png" },
+  { id: "hr", name: "Human Resource", color: "bg-red-500", desc: "People Power", headName: "Mariam Abdelhafiz", headImage: "/Mariam-abdelhafiz.png" },
+  { id: "pm", name: "Project Management", color: "bg-yellow-500", desc: "Project Masters", headName: "Aiam Hatem", headImage: "/Aiam.png" },
+  { id: "pr", name: "Public Relation", color: "bg-purple-500", desc: "Public Relations", headName: "Mohap Saleh", headImage: "/Mohap.png" },
+  { id: "fr", name: "Fundraising", color: "bg-green-500", desc: "Fundraising", headName: "Rawan El-Sayed", headImage: null },
+  { id: "logistics", name: "Logistics", color: "bg-orange-500", desc: "Operations", headName: "Mariam Waleed", headImage: null },   
+  { id: "er", name: "Organization", color: "bg-teal-500", desc: "Organization", headName: "Rawan Mahmoud", headImage: "/Rawan.png" },
+  { id: "mkt", name: "Marketing", color: "bg-pink-500", desc: "Marketing", headName: "Malak Fahmy", headImage: "/Malak-Fahmy.png" },
+  { id: "mm", name: "Multi-media", color: "bg-indigo-500", desc: "Multi-media", headName: "Malak Sherif", headImage: "/Malak-Sherif.png" },
+  { id: "pres", name: "Presentation", color: "bg-cyan-500", desc: "Presentation", headName: "Mariam Shady, Mariam Mahmoud", headImage: "/Mariam-Shady.png" },
 ];
 
 export default function Departments() {
@@ -76,11 +76,17 @@ export default function Departments() {
                         <div className="space-y-6">
                             <div className="bg-game-purple/20 p-4 rounded border border-game-primary">
                                 <h4 className="font-pixel text-sm text-game-primary mb-2">HEAD</h4>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-white/10 rounded-full"></div>
+                                <div className="flex items-center gap-6">
+                                    <div className="w-24 h-24 bg-white/10 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                                        {selectedDept?.headImage ? (
+                                             <img src={selectedDept.headImage} alt={selectedDept.headName} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <div className="w-full h-full bg-game-primary/30 flex items-center justify-center text-xl">?</div>
+                                        )}
+                                    </div>
                                     <div>
-                                        <p className="font-bold">Team Leader Name</p>
-                                        <p className="text-xs text-gray-400">Level 99 Boss</p>
+                                        <p className="font-bold text-lg">{selectedDept?.headName || "TBD"}</p>
+                                        <p className="text-sm text-game-accent">Level 99 Boss</p>
                                     </div>
                                 </div>
                             </div>

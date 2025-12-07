@@ -71,8 +71,8 @@ export default function Structure() {
                     <div className="absolute top-0 right-1/4 h-6 w-1 bg-game-primary -translate-y-[24px]"></div>
                     
                     <div className="grid grid-cols-2 gap-8 md:gap-32 justify-items-center relative z-20">
-                        <StructureNode role="Director" name="Habiba El-Sayed" level={2.5} />
-                        <StructureNode role="Director" name="Maram Ashraf" level={2.5} />
+                        <StructureNode role="Creative Director" name="Habiba El-Sayed" level={2.5} />
+                        <StructureNode role="Operations Director" name="Maram Ashraf" level={2.5} />
                     </div>
                 </div>
 

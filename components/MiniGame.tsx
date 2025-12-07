@@ -17,7 +17,7 @@ export default function MiniGame() {
   const JUMP_FORCE = -10;
   const SPEED = 5;
   const SPAWN_RATE = 100; // Frames
-  const WIN_SCORE = 20; // Score needed to win
+  const WIN_SCORE = 2; // Score needed to win
 
   // Game State Refs (for loop)
   const gameState = useRef({
