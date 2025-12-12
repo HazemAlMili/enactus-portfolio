@@ -4,19 +4,63 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { X, Users, Star } from "lucide-react";
+import DepartmentMiniGame from "./DepartmentMiniGame";
 
 const departments = [
-  { id: "it", name: "Information Technology", color: "bg-blue-600", desc: "Tech Wizards", headName: "Hazem Al-Melli", headImage: "/Hazem.png" },
-  { id: "hr", name: "Human Resource", color: "bg-red-500", desc: "People Power", headName: "Mariam Abdelhafiz", headImage: "/Mariam-abdelhafiz.png" },
-  { id: "pm", name: "Project Management", color: "bg-yellow-500", desc: "Project Masters", headName: "Aiam Hatem", headImage: "/Aiam.png" },
-  { id: "pr", name: "Public Relation", color: "bg-purple-500", desc: "Public Relations", headName: "Mohap Saleh", headImage: "/Mohap.png" },
-  { id: "fr", name: "Fundraising", color: "bg-green-500", desc: "Fundraising", headName: "Rawan El-Sayed", headImage: null },
-  { id: "logistics", name: "Logistics", color: "bg-orange-500", desc: "Operations", headName: "Mariam Waleed", headImage: null },   
-  { id: "er", name: "Organization", color: "bg-teal-500", desc: "Organization", headName: "Rawan Mahmoud", headImage: "/Rawan.png" },
-  { id: "mkt", name: "Marketing", color: "bg-pink-500", desc: "Marketing", headName: "Malak Fahmy", headImage: "/Malak-Fahmy.png" },
-  { id: "mm", name: "Multi-media", color: "bg-indigo-500", desc: "Multi-media", headName: "Malak Sherif", headImage: "/Malak-Sherif.png" },
-  { id: "pres", name: "Presentation", color: "bg-cyan-500", desc: "Presentation", headName: "Mariam Shady, Mariam Mahmoud", headImage: "/Mariam-Shady.png" },
+  { id: "it", name: "Information Technology", color: "bg-blue-600", desc: "Tech Wizards", heads: [{ name: "Hazem Al-Melli", image: null }], viceHeads: [], members: [] },
+  { id: "hr", name: "Human Resource", color: "bg-red-500", desc: "People Power", heads: [{ name: "Mariam Abdelhafiz", image: null }], viceHeads: [], members: [] },
+  { id: "pm", name: "Project Management", color: "bg-yellow-500", desc: "Project Masters", heads: [{ name: "Aiam Hatem", image: null }], viceHeads: [], members: [] },
+  { id: "pr", name: "Public Relation", color: "bg-purple-500", desc: "Public Relations", heads: [{ name: "Mohap Saleh", image: null }], viceHeads: [], members: [] },
+  { id: "fr", name: "Fundraising", color: "bg-green-500", desc: "Fundraising", heads: [{ name: "Rawan El-Sayed", image: null }], viceHeads: [{ name: "Khalid Selim" }], members: ["Wesam Hamdy", "Rawan Mahmoud", "Youssef Mohamed", "Mohamed Anas", "Rawan Essam", "Mohamed Ahmed", "Kareem Hamdy"] },
+  { id: "logistics", name: "Logistics", color: "bg-orange-500", desc: "Operations", heads: [{ name: "Mariam Waleed", image: null }], viceHeads: [], members: [] },   
+  { id: "er", name: "Organization", color: "bg-teal-500", desc: "Organization", heads: [{ name: "Rawan Mahmoud", image: null }], viceHeads: [], members: [] },
+  { id: "mkt", name: "Marketing", color: "bg-pink-500", desc: "Marketing", heads: [{ name: "Malak Fahmy", image: null }], viceHeads: [], members: [] },
+  { id: "mm", name: "Multi-media", color: "bg-indigo-500", desc: "Multi-media", heads: [{ name: "Malak Sherif", image: null }], viceHeads: [{ name: "Bavly Samy" }, { name: "Marwan Badran" }], members: ["Fares mohamed", "Ahmed Mohamed", "Hossam Eldien Mohamed", "Mohamed Ahmed", "Mohamed Maher", "Yahya Ayman", "Abdullah Hatem", "Gerges Michelle", "Omar Ahmed", "Malak Ali", "Rawan Fahd", "Nour Sherif", "Abdelrahman Sabry"] },
+  { id: "pres", name: "Presentation", color: "bg-cyan-500", desc: "Presentation", heads: [{ name: "Mariam Shady", image: null }, { name: "Mariam Mahmoud", image: null }], viceHeads: [], members: ["Salsabeel Mohammed", "Kenzy Hesham", "Raneem Shawkat", "Aya Hany", "Jana Hamdy", "Lina Wael", "Maryam Salem", "Salma Mohammed", "Youssef Tarek"] },
 ];
+
+// Helper to determine avatar characteristics based on name
+const getAvatar = (name: string) => {
+  const n = name.toLowerCase();
+  let params = "";
+  
+  // Female names rule
+  if (
+    n.includes("rawan") || 
+    n.includes("mariam") || 
+    n.includes("malak") ||
+    n.includes("nour") ||
+    n.includes("jana") ||
+    n.includes("salma") ||
+    n.includes("wesam") || 
+    n.includes("nada") ||
+    n.includes("shahd") ||
+    n.includes("menna") ||
+    n.includes("habiba") ||
+    n.includes("hana") ||
+    n.includes("yasmin") ||
+    n.includes("rokaya") ||
+    n.includes("renad") ||
+    n.includes("joudy") ||
+    n.includes("basmala") ||
+    n.includes("salsabeel") ||
+    n.includes("kenzy") ||
+    n.includes("raneem") ||
+    n.includes("aya") ||
+    n.includes("lina")
+  ) {
+     // Valid pixel-art values for females
+     params = "&beardProbability=0&hatProbability=0&hair=long01,long02,long03,long04,long05"; 
+  } 
+  // Male names rule (Default)
+  else {
+     // Valid pixel-art values for males
+     params = "&hatProbability=0&hair=short01,short02,short03,short04,short05";
+  }
+
+  // Use 7.x for stability
+  return `https://api.dicebear.com/7.x/pixel-art/svg?seed=${encodeURIComponent(name)}${params}`;
+};
 
 export default function Departments() {
   const [selectedDept, setSelectedDept] = useState<typeof departments[0] | null>(null);
@@ -66,51 +110,88 @@ export default function Departments() {
                             <Star className="fill-game-accent" />
                             {selectedDept?.name} DEPARTMENT
                         </DialogTitle>
-                        <DialogDescription className="text-gray-300">
-                           {selectedDept?.desc}
-                        </DialogDescription>
+                        {/* Game replaces static description */}
+                        <div className="mt-4">
+                            <DepartmentMiniGame 
+                                deptId={selectedDept?.id || 'it'} 
+                                description={selectedDept?.desc || ''} 
+                            />
+                        </div>
                     </DialogHeader>
                     
                     <div className="py-6 overflow-y-auto max-h-[60vh]">
                         {/* Mock Team Data */}
                         <div className="space-y-6">
+                            {/* Heads Section */}
                             <div className="bg-game-purple/20 p-4 rounded border border-game-primary">
-                                <h4 className="font-pixel text-sm text-game-primary mb-2">HEAD</h4>
-                                <div className="flex items-center gap-6">
-                                    <div className="w-24 h-24 bg-white/10 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                                        {selectedDept?.headImage ? (
-                                             <img src={selectedDept.headImage} alt={selectedDept.headName} className="w-full h-full object-cover" />
-                                        ) : (
-                                            <div className="w-full h-full bg-game-primary/30 flex items-center justify-center text-xl">?</div>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-lg">{selectedDept?.headName || "TBD"}</p>
-                                        <p className="text-sm text-game-accent">Level 99 Boss</p>
-                                    </div>
+                                <h4 className="font-pixel text-sm text-game-primary mb-4">
+                                    HEAD{(selectedDept?.heads?.length || 0) > 1 ? 'S' : ''}
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {selectedDept?.heads?.map((head, index) => (
+                                        <div key={index} className="flex items-center gap-4">
+                                            <div className="w-20 h-20 bg-white/10 rounded-full overflow-hidden border-4 border-white shadow-lg shrink-0">
+                                                <img 
+                                                     src={head.image || getAvatar(head.name)} 
+                                                     alt={head.name} 
+                                                     className="w-full h-full object-cover" 
+                                                />
+                                            </div>
+                                            <div>
+                                                <p className="font-bold text-lg leading-tight">{head.name}</p>
+                                                <p className="text-xs text-game-accent">Level 99 Boss</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                             
-                            <div className="bg-game-purple/10 p-4 rounded border border-white/10">
-                                <h4 className="font-pixel text-sm text-white mb-2">VICE HEAD</h4>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-white/10 rounded-full"></div>
-                                    <div>
-                                        <p className="font-bold">Vice Leader Name</p>
-                                        <p className="text-xs text-gray-400">Level 80 Admin</p>
+                            {/* Vice Heads Section */}
+                            {selectedDept?.viceHeads && selectedDept.viceHeads.length > 0 && (
+                                <div className="bg-game-purple/10 p-4 rounded border border-white/10">
+                                    <h4 className="font-pixel text-sm text-white mb-4">
+                                        VICE HEAD{(selectedDept?.viceHeads?.length || 0) > 1 ? 'S' : ''}
+                                    </h4>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {selectedDept.viceHeads.map((vice, index) => (
+                                            <div key={index} className="flex items-center gap-4">
+                                                <div className="w-12 h-12 bg-white/10 rounded-full overflow-hidden border border-white/30 shrink-0">
+                                                    <img 
+                                                         src={getAvatar(vice.name)} 
+                                                         alt={vice.name}
+                                                         className="w-full h-full object-cover"
+                                                     />
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold">{vice.name}</p>
+                                                    <p className="text-xs text-gray-400">Level 80 Admin</p>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                            </div>
+                            )}
 
+                            {/* Members Section */}
                             <div>
                                 <h4 className="font-pixel text-sm text-gray-400 mb-3">MEMBERS (Players)</h4>
                                 <div className="grid grid-cols-2 gap-4">
-                                     {[1,2,3,4].map(i => (
-                                         <div key={i} className="flex items-center gap-2 p-2 rounded hover:bg-white/5">
-                                             <div className="w-8 h-8 bg-game-accent/20 rounded-full"></div>
-                                             <span className="text-sm">Player {i}</span>
-                                         </div>
-                                     ))}
+                                     {selectedDept?.members && selectedDept.members.length > 0 ? (
+                                         selectedDept.members.map((member, i) => (
+                                             <div key={i} className="flex items-center gap-2 p-2 rounded hover:bg-white/5">
+                                                 <div className="w-8 h-8 rounded-full overflow-hidden bg-white/10 border border-white/20">
+                                                     <img 
+                                                         src={getAvatar(member)} 
+                                                         alt={member}
+                                                         className="w-full h-full object-cover"
+                                                     />
+                                                 </div>
+                                                 <span className="text-sm">{member}</span>
+                                             </div>
+                                         ))
+                                     ) : (
+                                         <div className="col-span-2 text-center text-gray-500 italic py-4">No members loaded yet.</div>
+                                     )}
                                 </div>
                             </div>
                         </div>
