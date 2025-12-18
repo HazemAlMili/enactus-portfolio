@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Press_Start_2P, Outfit } from "next/font/google";
 import "./globals.css";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${pressStart2P.variable} ${outfit.variable} antialiased bg-[#090040] text-white`}
       >
+        <ServiceWorkerRegistration />
         {children}
       </body>
     </html>

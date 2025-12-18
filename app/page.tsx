@@ -5,7 +5,7 @@ import Departments from "@/components/Departments";
 import Footer from "@/components/Footer";
 import PixelClouds from "@/components/PixelClouds";
 import NavBar from "@/components/NavBar";
-import MiniGame from "@/components/MiniGame";
+
 
 export default function Home() {
   return (
@@ -16,7 +16,6 @@ export default function Home() {
       <AboutUs />
       <Structure />
       <Departments />
-      <MiniGame />
       <Footer />
     </main>
   );

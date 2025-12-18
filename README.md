@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Enactus Portfolio & Interactive Department Games
 
-## Getting Started
+Welcome to the **Enactus Portfolio**, a premium, interactive web experience designed to showcase the organizational structure, department roles, and creative culture of Enactus. This platform combines a professional portfolio with a gamified department discovery system.
 
-First, run the development server:
+## 🚀 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The Enactus Portfolio is built to engage visitors and potential members by allowing them to "step into the shoes" of different departments through specialized mini-games. From analyzing system logic in IT to crafting the perfect pitch in Presentation, every part of the organization is represented through interactive logic and modern design.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🏢 Department Hub
+Discover the various branches of the team, including:
+- **IT Department**: Solving complex problems with systems thinking.
+- **Multi-Media (MM)**: Capturing the vision through visual awareness and design.
+- **Marketing (MKT)**: Creative selling and brand positioning.
+- **HR (Human Resources)**: Connecting people and roles.
+- **PM (Project Management)**: Mastering the art of organization and project flow.
+-...and many more (PR, FR, ER, Logistics, Presentation).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🕹️ Interactive Mini-Games
+Each department features a unique mini-game designed to test specific skills:
+- **Think Like a System (IT)**: Logical breakdown of complex digital services.
+- **Spot the Visual (MM)**: Identifying main messages and target audiences in design.
+- **One-Minute Pitch (Pres)**: Fast-paced public speaking and idea organization.
+- **Fix the Chaos (ER)**: Organizing organizational scenarios into structured tasks.
+- **Sell Without Saying (MKT)**: Marketing challenges with creative constraints.
+- **Task Shuffle (PM)**: Project sequencing and prioritization.
 
-## Learn More
+### 🎨 Premium UI/UX
+- **Modern Aesthetics**: Sleek dark mode, glassmorphism, and vibrant accent colors tailored to each department.
+- **Fluid Animations**: Powered by `framer-motion` for smooth transitions and interactive micro-animations.
+- **Responsive Design**: optimized for both desktop and mobile experiences.
+- **Retro-Arcade Vibes**: Integrated pixel-art elements and arcade-inspired game mechanics.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Core**: [Next.js](https://nextjs.org/) (App Router), [React 19](https://reactjs.org/)
+- **Logic**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **PWA**: Service Worker integration for performance and offline features.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📂 Project Structure
 
-## Deploy on Vercel
+- `/app`: Next.js 16 app directory (routes, layout, styling).
+- `/components`: Modular UI components (Hero, AboutUs, Departments, etc.).
+    - `DepartmentMiniGame.tsx`: The core game engine powering all 10+ department games.
+- `/lib`: Utility functions, departmental data, and avatar generation logic.
+- `/public`: Static assets and Service Worker.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Getting Started
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone the repository**:
+   ```bash
+   git clone [repository-url]
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+## 📜 License
+
+Created with passion by the Enactus Team. All rights reserved.
+
+---
+## BUILT BY HAZEM AL-MELLI ==> Head of IT Department at Enactus CIC Zayed s'26
+*"The only way to go fast, is to go well."*
