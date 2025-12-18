@@ -17,8 +17,17 @@ export default function Departments() {
     DEPARTMENTS.forEach(dept => {
       dept.heads.forEach(h => allNames.push(h.name));
       dept.viceHeads?.forEach((v: { name: string }) => allNames.push(v.name));
-      if (dept.members) {
-        allNames.push(...dept.members);
+      
+      // Handle standard members
+      if ('members' in dept && dept.members) {
+        allNames.push(...(dept.members as readonly string[]));
+      }
+      
+      // Handle sections (like in HR)
+      if ('sections' in dept && dept.sections) {
+        dept.sections.forEach(section => {
+          allNames.push(...(section.members as readonly string[]));
+        });
       }
     });
     // Preload in next tick to not block initial render
@@ -147,28 +156,57 @@ export default function Departments() {
                                 </div>
                             )}
 
-                            {/* Members Section */}
-                            <div>
-                                <h4 className="font-pixel text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3">MEMBERS</h4>
-                                <div className="grid grid-cols-2 gap-1.5 sm:gap-4 max-h-[150px] sm:max-h-none overflow-y-auto">
-                                     {selectedDept?.members && selectedDept.members.length > 0 ? (
-                                         selectedDept.members.map((member, i) => (
-                                             <div key={i} className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-2 rounded hover:bg-white/5">
-                                                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-white/10 border border-white/20 shrink-0">
-                                                     <img 
-                                                         src={getAvatar(member)} 
-                                                         alt={member}
-                                                         className="w-full h-full object-cover"
-                                                     />
+                             {/* Members Section */}
+                             <div className="mt-4">
+                                 {selectedDept && 'sections' in selectedDept ? (
+                                     <div className="space-y-6">
+                                         {selectedDept.sections.map((section: any, idx: number) => (
+                                             <div key={idx} className="bg-white/5 p-3 rounded-lg border border-white/10">
+                                                 <h4 className="font-pixel text-[10px] sm:text-xs text-game-accent mb-3 uppercase tracking-widest flex items-center gap-2">
+                                                     <Users className="w-3 h-3" />
+                                                     {section.title}
+                                                 </h4>
+                                                 <div className="grid grid-cols-2 gap-1.5 sm:gap-4">
+                                                     {section.members.map((member: string, i: number) => (
+                                                         <div key={i} className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-2 rounded hover:bg-white/10 transition-colors">
+                                                             <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-white/10 border border-white/20 shrink-0">
+                                                                 <img 
+                                                                     src={getAvatar(member)} 
+                                                                     alt={member}
+                                                                     className="w-full h-full object-cover"
+                                                                 />
+                                                             </div>
+                                                             <span className="text-[10px] sm:text-sm truncate">{member}</span>
+                                                         </div>
+                                                     ))}
                                                  </div>
-                                                 <span className="text-[10px] sm:text-sm truncate">{member}</span>
                                              </div>
-                                         ))
-                                     ) : (
-                                         <div className="col-span-2 text-center text-gray-500 italic py-2 sm:py-4 text-xs sm:text-sm">No members loaded yet.</div>
-                                     )}
-                                </div>
-                            </div>
+                                         ))}
+                                     </div>
+                                 ) : (
+                                     <>
+                                         <h4 className="font-pixel text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3">MEMBERS</h4>
+                                         <div className="grid grid-cols-2 gap-1.5 sm:gap-4 max-h-[150px] sm:max-h-none overflow-y-auto">
+                                              {selectedDept && 'members' in selectedDept && selectedDept.members && selectedDept.members.length > 0 ? (
+                                                  (selectedDept.members as readonly string[]).map((member, i) => (
+                                                      <div key={i} className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-2 rounded hover:bg-white/5">
+                                                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-white/10 border border-white/20 shrink-0">
+                                                              <img 
+                                                                  src={getAvatar(member)} 
+                                                                  alt={member}
+                                                                  className="w-full h-full object-cover"
+                                                              />
+                                                          </div>
+                                                          <span className="text-[10px] sm:text-sm truncate">{member}</span>
+                                                      </div>
+                                                  ))
+                                              ) : (
+                                                  <div className="col-span-2 text-center text-gray-500 italic py-2 sm:py-4 text-xs sm:text-sm">No members loaded yet.</div>
+                                              )}
+                                         </div>
+                                     </>
+                                 )}
+                             </div>
                         </div>
                     </div>
                 </DialogContent>

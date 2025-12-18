@@ -24,8 +24,17 @@ export const DEPARTMENTS = [
     color: "bg-red-500", 
     desc: "People Power", 
     heads: [{ name: "Mariam Abdelhafiz", image: null }], 
-    viceHeads: [], 
-    members: [] 
+    viceHeads: [{ name: "Yara Yasser" }, { name: "Nadin Mohamed" }], 
+    sections: [
+      {
+        title: "Team leaders",
+        members: ["Mohamed wa’el", "Jana hany", "Malak el shrief", "Shimaa abdallah", "Fareda"]
+      },
+      {
+        title: "Coordinators",
+        members: ["Bahy", "Roqaia", "Yassin", "Sama", "Nada", "Maram", "Ibrahim", "Salma", "Mariam hany", "Srouq", "Mariam nagdy", "Ahmed ashraf", "Adam", "Ahmed abdelgawad", "Mavie", "Mariam"]
+      }
+    ]
   },
   { 
     id: "pm", 
@@ -154,7 +163,8 @@ export const FEMALE_NAMES = [
   "sara", "mirna", "passant", "nourhan", "marolla", "elaria", "tasneem",
   "fatma", "noura", "rana", "basma", "donia", "lojain", "esraa", "hanna",
   "juwayriya", "ghezlan", "gamila", "rawda", "haneen", "hager", "nareman",
-  "veronica", "abeer", "maryam", "haidy", "heidi", "marina", "mawadah", "zeina", "roaa"
+  "veronica", "abeer", "maryam", "haidy", "heidi", "marina", "mawadah", "zeina", "roaa",
+  "shimaa", "fareda", "roqaia", "sama", "srouq", "mavie", "yara", "nadin", "maram"
 ] as const;
 
 export type Department = typeof DEPARTMENTS[number];
